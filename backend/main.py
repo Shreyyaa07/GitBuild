@@ -31,11 +31,15 @@ API_KEY = os.getenv("OPENROUTER_API_KEY")
 
 class ChatRequest(BaseModel):
     prompt: str
+    session_id: str
 
 @app.get("/")
 def home():
     return {"message": "Backend is running 🚀"}
-conversation_history = []
+
+# Dictionary to store conversation history per session
+sessions = {}
+
 @app.post("/chat")
 def chat(request: ChatRequest):
     url = "https://openrouter.ai/api/v1/chat/completions"
@@ -88,27 +92,37 @@ FORMAT YOUR RESPONSE LIKE THIS:
 Keep response attractive, readable, and helpful — not just numbers.
 """
 
-    conversation_history.append({
+    session_id = request.session_id
+    if session_id not in sessions:
+        sessions[session_id] = []
+
+    sessions[session_id].append({
         "role": "user",
         "content": request.prompt
     })
+
+    # Limit history to last 10 messages to avoid token bloat
+    recent_history = sessions[session_id][-10:]
 
     data = {
         "model": "openai/gpt-4o-mini",
         "messages": [
             {"role": "system", "content": system_prompt},
-            *conversation_history
+            *recent_history
         ]
     }
 
-    response = requests.post(url, headers=headers, json=data)
-    result = response.json()
+    try:
+        response = requests.post(url, headers=headers, json=data)
+        response.raise_for_status()
+        result = response.json()
+        ai_reply = result["choices"][0]["message"]["content"]
+        
+        sessions[session_id].append({
+            "role": "assistant",
+            "content": ai_reply
+        })
 
-    ai_reply = result["choices"][0]["message"]["content"]
-
-    conversation_history.append({
-        "role": "assistant",
-        "content": ai_reply
-    })
-
-    return {"response": ai_reply}
+        return {"response": ai_reply}
+    except Exception as e:
+        return {"error": str(e), "response": "I'm having trouble connecting to my brain right now. Please try again later!"}
