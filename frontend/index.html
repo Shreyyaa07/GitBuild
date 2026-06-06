@@ -1,0 +1,936 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BuildWise AI | Design Your Dream Home</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      :root {
+        --primary: #6366f1;
+        --primary-dark: #4f46e5;
+        --secondary: #f8fafc;
+        --text-dark: #0f172a;
+        --text-light: #64748b;
+        --white: #ffffff;
+        --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s ease;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        line-height: 1.6;
+        color: var(--text-dark);
+        background-color: var(--white);
+        overflow-x: hidden;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 0.8rem 1.8rem;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: var(--transition);
+        border: none;
+        font-size: 0.95rem;
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: var(--white);
+        box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.39);
+      }
+
+      .btn-primary:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+      }
+
+      .btn-outline {
+        background: transparent;
+        border: 1px solid #e2e8f0;
+        color: var(--text-dark);
+      }
+
+      .btn-outline:hover {
+        background: #f1f5f9;
+      }
+
+      /* Navbar */
+      nav {
+        height: 80px;
+        display: flex;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        z-index: 1000;
+        border-bottom: 1px solid #f1f5f9;
+      }
+
+      .nav-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--primary);
+        letter-spacing: -0.5px;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2.5rem;
+      }
+
+      .nav-links a {
+        font-weight: 500;
+        color: var(--text-light);
+        transition: var(--transition);
+      }
+
+      .nav-links a:hover {
+        color: var(--primary);
+      }
+
+      .hamburger {
+        display: none;
+        cursor: pointer;
+        font-size: 1.5rem;
+      }
+
+      /* Hero Section */
+      .hero {
+        padding: 180px 0 100px;
+        background: radial-gradient(circle at top right, #f5f3ff, transparent);
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 4rem;
+      }
+
+      .hero-content h1 {
+        font-size: 3.5rem;
+        line-height: 1.1;
+        margin-bottom: 1.5rem;
+        font-weight: 800;
+      }
+
+      .hero-content p {
+        font-size: 1.25rem;
+        color: var(--text-light);
+        margin-bottom: 2.5rem;
+        max-width: 500px;
+      }
+
+      .hero-btns {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .hero-image img {
+        width: 100%;
+        border-radius: 24px;
+        box-shadow: 20px 20px 60px rgba(0, 0, 0, 0.05);
+        animation: float 6s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      /* Design Showcase */
+      .section-padding {
+        padding: 100px 0;
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 4rem;
+      }
+
+      .section-title h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .design-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .card {
+        background: var(--white);
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid #f1f5f9;
+        transition: var(--transition);
+      }
+
+      .card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow);
+      }
+
+      .card-img {
+        height: 220px;
+        background: #e2e8f0;
+        overflow: hidden;
+      }
+
+      .card-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .card-body {
+        padding: 1.5rem;
+      }
+
+      .card-body h3 {
+        margin-bottom: 0.5rem;
+      }
+
+      .card-body p {
+        color: var(--text-light);
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+
+      .price-tag {
+        color: var(--primary);
+        font-weight: 700;
+        font-size: 1.1rem;
+      }
+
+      /* Features */
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 2rem;
+      }
+
+      .feature-item {
+        padding: 2.5rem;
+        border-radius: 20px;
+        background: var(--secondary);
+        transition: var(--transition);
+      }
+
+      .feature-item:hover {
+        background: var(--white);
+        box-shadow: var(--shadow);
+      }
+
+      .feature-item i {
+        font-size: 2rem;
+        color: var(--primary);
+        margin-bottom: 1.5rem;
+      }
+
+      /* Chat UI Section */
+      .builder-section {
+        background: #0f172a;
+        color: var(--white);
+        border-radius: 32px;
+        padding: 4rem;
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 4rem;
+        align-items: center;
+      }
+
+      .chat-ui {
+        background: #1e293b;
+        border-radius: 16px;
+        height: 600px;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #334155;
+        overflow: hidden;
+      }
+
+      .chat-header {
+        padding: 1rem;
+        background: #334155;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .status-dot {
+        width: 10px;
+        height: 10px;
+        background: #22c55e;
+        border-radius: 50%;
+      }
+
+      .chat-body {
+        flex: 1;
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        overflow-y: auto;
+      }
+
+      .msg {
+        max-width: 80%;
+        padding: 0.8rem 1rem;
+        border-radius: 12px;
+        font-size: 0.9rem;
+      }
+
+      .msg-ai {
+        background: #334155;
+        align-self: flex-start;
+        border-bottom-left-radius: 2px;
+        line-height: 1.5;
+      }
+      .hero-title {
+  text-align: center;
+  font-size: 42px;
+  font-weight: 700;
+  margin-top: 40px;
+  color: #ffffff;
+
+  /* Gradient text */
+  background: linear-gradient(90deg, #38bdf8, #6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* Smooth look */
+  letter-spacing: 1px;
+}
+
+      .msg-ai strong {
+        color: #a5b4fc;
+      }
+
+      .msg-user {
+        background: var(--primary);
+        align-self: flex-end;
+        border-bottom-right-radius: 2px;
+      }
+
+      .chat-input {
+        padding: 1rem;
+        background: #1e293b;
+        border-top: 1px solid #334155;
+        display: flex;
+        gap: 10px;
+      }
+
+      .chat-input input {
+        flex: 1;
+        background: #0f172a;
+        border: 1px solid #334155;
+        padding: 0.6rem 1rem;
+        border-radius: 6px;
+        color: white;
+      }
+
+      /* CTA */
+      .cta-section {
+        text-align: center;
+        background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+        border-radius: 24px;
+        color: white;
+        padding: 5rem 2rem;
+        margin-top: 4rem;
+      }
+
+      .cta-section h2 {
+        font-size: 2.8rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .cta-section .btn {
+        background: white;
+        color: var(--primary);
+        padding: 1rem 2.5rem;
+        font-size: 1.1rem;
+      }
+
+     .footer {
+  background: #020617;
+  color: #cbd5f5;
+  padding: 40px 20px 10px;
+  margin-top: 50px;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1000px;
+  margin: auto;
+  gap: 20px;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 220px;
+}
+
+.footer-section h2,
+.footer-section h3 {
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.footer-section a {
+  display: block;
+  color: #cbd5f5;
+  text-decoration: none;
+  margin: 5px 0;
+  transition: 0.3s;
+}
+
+.footer-section a:hover {
+  color: #38bdf8;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+  border-top: 1px solid #1e293b;
+  padding-top: 10px;
+  font-size: 14px;
+  color: #94a3b8;
+}
+
+/* Mobile */
+
+
+      /* Responsive */
+      @media (max-width: 992px) {
+        .hero-grid,
+        .builder-section {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .hero-content h1 {
+          font-size: 2.8rem;
+        }
+        .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+        .hero-btns {
+          justify-content: center;
+        }
+        .hero-content p {
+          margin: 0 auto 2.5rem;
+        }
+        .builder-section {
+          padding: 2rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+          position: absolute;
+          top: 80px;
+          left: 0;
+          width: 100%;
+          background: white;
+          flex-direction: column;
+          padding: 2rem;
+          text-align: center;
+          box-shadow: 0 10px 10px rgba(0, 0, 0, 0.05);
+        }
+        .nav-links.active {
+          display: flex;
+        }
+        .hamburger {
+          display: block;
+        }
+        .hero-content h1 {
+          font-size: 2.2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="container nav-content">
+        <a href="#" class="logo">BuildWise AI</a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#designs">Designs</a></li>
+          <li><a href="#builder">Be Your Own Builder</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="hamburger" onclick="toggleMenu()">
+          <i class="fas fa-bars"></i>
+        </div>
+      </div>
+    </nav>
+
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <h1>Design Your Dream Home — Without an Architect</h1>
+          <p>
+            AI-powered house planning, cost estimation, and smart design
+            suggestions tailored to your lifestyle.
+          </p>
+          <div class="hero-btns">
+            <a href="#builder" class="btn btn-primary">Be Your Own Builder</a>
+            <a href="#designs" class="btn btn-outline">Explore Designs</a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img
+            src="https://images.pexels.com/photos/11116100/pexels-photo-11116100.jpeg"
+            alt="Modern Architecture"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section class="container section-padding" id="designs">
+      <div class="section-title">
+        <h2>Popular Blueprints</h2>
+        <p>Hand-picked, AI-optimized layouts for every family size.</p>
+      </div>
+      <div class="design-grid">
+        <div class="card">
+          <div class="card-img">
+            <img
+              src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+              alt="Modern Home"
+            />
+          </div>
+          <div class="card-body">
+            <h3>2BHK Modern Minimalist</h3>
+            <p>
+              Efficient use of space with open-concept living and
+              floor-to-ceiling windows.
+            </p>
+            <div class="price-tag">Est: $85,000</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img">
+            <img
+              src="https://images.pexels.com/photos/16573669/pexels-photo-16573669.jpeg"
+              alt="Luxury Villa"
+            />
+          </div>
+          <div class="card-body">
+            <h3>3BHK Nordic Villa</h3>
+            <p>Eco-friendly materials and smart climate control integration.</p>
+            <div class="price-tag">Est: $140,000</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-img">
+            <img
+              src="https://images.pexels.com/photos/6447384/pexels-photo-6447384.jpeg"
+              alt="Smart Home"
+            />
+          </div>
+          <div class="card-body">
+            <h3>Compact Smart Studio</h3>
+            <p>Perfect for urban lots. Multi-functional furniture ready.</p>
+            <div class="price-tag">Est: $45,000</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container section-padding">
+      <div class="features-grid">
+        <div class="feature-item">
+          <i class="fas fa-magic"></i>
+          <h3>AI House Planning</h3>
+          <p>
+            Generate optimized floor plans based on your land dimensions in
+            seconds.
+          </p>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-calculator"></i>
+          <h3>Cost Estimation</h3>
+          <p>
+            Get real-time market rates for labor and materials in your specific
+            region.
+          </p>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-leaf"></i>
+          <h3>Eco-Suggestions</h3>
+          <p>
+            AI recommends sustainable materials to lower your carbon footprint.
+          </p>
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-couch"></i>
+          <h3>Interior Ideas</h3>
+          <p>
+            Instantly visualize furniture layouts and color palettes for your
+            new home.
+          </p>
+        </div>
+      </div>
+    </section>
+    <h1 class="hero-title">Meet your personal helper</h1>
+
+    <section class="container section-padding" id="builder">
+      <div class="builder-section">
+        <div class="builder-text">
+          <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem">
+            Talk to BuildWise AI
+          </h2>
+          <p style="color: #94a3b8; margin-bottom: 2rem">
+            Describe your needs like you're talking to a friend. Our AI handles
+            the technical complexities of architecture and engineering.
+          </p>
+          <ul style="display: flex; flex-direction: column; gap: 1rem">
+            <li>
+              <i
+                class="fas fa-check-circle"
+                style="color: var(--primary); margin-right: 10px"
+              ></i>
+              Instant architectural feedback
+            </li>
+            <li>
+              <i
+                class="fas fa-check-circle"
+                style="color: var(--primary); margin-right: 10px"
+              ></i>
+              Dynamic cost adjustments
+            </li>
+            <li>
+              <i
+                class="fas fa-check-circle"
+                style="color: var(--primary); margin-right: 10px"
+              ></i>
+              Structural safety checks
+            </li>
+          </ul>
+        </div>
+        <div class="chat-ui">
+          <div class="chat-header">
+            <div class="status-dot"></div>
+            <span style="font-weight: 600; font-size: 0.9rem"
+              >BuildWise Architect AI</span
+            >
+          </div>
+          <div class="chat-body" id="chatBody">
+            <div class="msg msg-ai">
+              Hi there! I'm ready to design. How many bedrooms are you looking
+              for?
+            </div>
+            <div class="msg msg-user">
+              I want a 3-bedroom home with a large garden and a modern kitchen.
+            </div>
+            <div class="msg msg-ai">
+              Great choice! Based on current trends, I suggest an L-shaped
+              layout to maximize garden views. Should I estimate the cost for
+              premium marble or hardwood flooring?
+            </div>
+          </div>
+          <div class="chat-input">
+            <input type="text" placeholder="Type your requirements..." />
+            <button class="btn btn-primary" style="padding: 0.5rem 1rem">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="container">
+      <div class="cta-section">
+        <h2>Start Building Smarter Today</h2>
+        <p style="margin-bottom: 2rem; opacity: 0.9">
+          Join 5,000+ homeowners who designed their homes with BuildWise AI.
+        </p>
+        <button class="btn">Try AI Builder Free</button>
+      </div>
+    </section>
+
+    <footer class="footer">
+  <div class="footer-container">
+
+    <div class="footer-section">
+      <h2>BuildWise AI</h2>
+      <p>Making house planning simple, affordable, and accessible using AI.</p>
+    </div>
+
+    <div class="footer-section">
+      <h3>Quick Links</h3>
+      <a href="mailto:sanskarchouksey2006@gmail.com">sanskarchouksey2006@gmail.com</a>
+      <a href="https://www.linkedin.com/in/sanskar-chouksey-51a730362" target="_blank">Linkedin</a>
+      <a href="https://github.com/sanskkrr" target="_blank">GitHub</a>
+    </div>
+
+    <div class="footer-section">
+      <h3>Developers</h3>
+      <a href="https://www.linkedin.com/in/sanskar-chouksey-51a730362" target="_blank">Sanskar Chouksey</a>
+      <a href="https://www.linkedin.com/in/shreya-maheshwari-939508368" target="_blank">Shreya Maheshwari</a>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 BuildWise AI | Built for Citronics 2K26</p>
+  </div>
+</footer>
+
+    <script>
+      //demo response simulation
+      const demoResponses = {
+        500: `1. Floor Plan:
+- Due to limited 500 sq ft plot, a G+1 (duplex) design is recommended.
+- Ground Floor:
+  • Living Room: 10x12 ft
+  • Kitchen: 8x10 ft (preferably South-East as per Vastu)
+  • Bathroom: 5x7 ft
+- First Floor:
+  • Bedroom 1: 10x10 ft
+  • Bedroom 2: 9x10 ft
+  • Small balcony for ventilation
+- Staircase placed at corner to save space
+
+2. Estimated Construction Cost (₹):
+- Approx ₹8–12 lakhs
+- ₹1600–₹2000 per sq ft (basic finish)
+
+3. Materials Required:
+- Cement: ~250–300 bags
+- Bricks: ~18,000–22,000
+- Steel: ~700–900 kg
+- Sand + aggregate for RCC and plaster
+
+4. Interior & Cultural Elements:
+- Pooja space near living area (North-East corner)
+- Use light colors (cream/white) for spacious feel
+- Marble tiles or vitrified tiles for flooring
+- Wooden main door (teak finish) for traditional look
+- Proper ventilation (windows opposite each other)
+
+5. Smart Cost Optimization:
+- Keep wall alignment straight to reduce construction waste
+- Use fly ash bricks instead of red bricks
+- Avoid false ceiling in small spaces
+
+6. Bonus Suggestion:
+- Plan roof slab strong enough for future 2nd floor
+- Add small front space for plants or Tulsi (common in Indian homes)`,
+
+        1000: `1. Floor Plan:
+- Ideal 2BHK single-floor house
+- Living Room: 14x16 ft (central area)
+- Kitchen: 10x10 ft (South-East preferred)
+- Master Bedroom: 12x12 ft
+- Second Bedroom: 11x11 ft
+- 2 Bathrooms (attached + common)
+- Small dining area connected to kitchen
+- Optional parking space in front
+
+2. Estimated Construction Cost (₹):
+- Approx ₹15–20 lakhs
+- ₹1500–₹2000 per sq ft
+
+3. Materials Required:
+- Cement: ~400–450 bags
+- Bricks: ~28,000–32,000
+- Steel: ~1100–1300 kg
+
+4. Interior & Cultural Elements:
+- Separate pooja room or wall-mounted temple
+- Modular kitchen with chimney
+- Indian-style + Western-style bathroom combo
+- Use tiles up to 7 ft height in bathrooms
+- Proper sunlight direction (East-facing entrance preferred)
+
+5. Smart Cost Optimization:
+- Reduce corridor/wasted space
+- Use local materials (sand, bricks)
+- Avoid overly complex elevation design
+
+6. Bonus Suggestion:
+- Keep staircase provision for future first floor
+- Can convert one room into rental space later`,
+
+        1500: `1. Floor Plan:
+- Spacious 3BHK or G+1 duplex house
+- Ground Floor:
+  • Living Room: 16x18 ft
+  • Kitchen + Dining: 12x14 ft
+  • 1 Bedroom: 12x12 ft
+- First Floor:
+  • 2 Bedrooms (12x12 ft each)
+  • Balcony + terrace space
+- Separate parking + small garden
+
+2. Estimated Construction Cost (₹):
+- Approx ₹25–35 lakhs
+- ₹1600–₹2200 per sq ft
+
+3. Materials Required:
+- Cement: ~600–700 bags
+- Bricks: ~45,000–50,000
+- Steel: ~1600–2000 kg
+
+4. Interior & Cultural Elements:
+- Dedicated pooja room (North-East ideal)
+- Wooden wardrobes (built-in)
+- False ceiling with LED lights
+- Granite kitchen platform
+- Space for guests (common in Indian homes)
+
+5. Smart Cost Optimization:
+- Build in phases (ground first, then first floor)
+- Use standard room sizes to reduce material waste
+- Avoid expensive exterior glass work
+
+6. Bonus Suggestion:
+- Add rental portion on first floor for passive income
+- Rainwater harvesting system (useful in Indian conditions)`,
+      };
+
+      function getDemoResponse(message) {
+        if (message.includes("500")) return demoResponses["500"];
+        if (message.includes("1000")) return demoResponses["1000"];
+        if (message.includes("1500")) return demoResponses["1500"];
+        return "⚠️ Demo mode: Try 500, 1000 or 1500 sq ft.";
+      }
+
+      // Toggle Mobile Menu
+      function toggleMenu() {
+        const navLinks = document.getElementById("navLinks");
+        navLinks.classList.toggle("active");
+      }
+
+      // Smooth Scrolling
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute("href")).scrollIntoView({
+            behavior: "smooth",
+          });
+
+          // Close mobile menu if open
+          if (window.innerWidth < 768) {
+            toggleMenu();
+          }
+        });
+      });
+
+      // Simple Chat Interaction Simulation
+      const chatInput = document.querySelector(".chat-input input");
+      const sendBtn = document.querySelector(".chat-input button");
+      const chatBody = document.getElementById("chatBody");
+
+      // 🔥 Function to call backend
+      async function sendMessageToAI(message) {
+        try {
+          const response = await fetch("http://127.0.0.1:8000/chat", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ prompt: message }),
+          });
+
+          const data = await response.json();
+          return data.response;
+        } catch (error) {
+          // 🔥 fallback
+          return getDemoResponse(message);
+        }
+      }
+
+      // 🎯 Handle send button
+      sendBtn.addEventListener("click", async () => {
+        const userText = chatInput.value.trim();
+        if (userText === "") return;
+
+        // Show user message
+        const userMsg = document.createElement("div");
+        userMsg.className = "msg msg-user";
+        userMsg.textContent = userText;
+        chatBody.appendChild(userMsg);
+
+        chatInput.value = "";
+
+        // Show loading message
+        const aiMsg = document.createElement("div");
+        aiMsg.className = "msg msg-ai";
+        aiMsg.textContent = "Thinking...";
+        chatBody.appendChild(aiMsg);
+
+        chatBody.scrollTop = chatBody.scrollHeight;
+
+        // Get AI response
+        const aiResponse = await sendMessageToAI(userText);
+
+        function formatResponse(text) {
+          return text
+            .replace(/\n/g, "<br>") // line breaks
+            .replace(/1\./g, "<br><strong>1.</strong>")
+            .replace(/2\./g, "<br><strong>2.</strong>")
+            .replace(/3\./g, "<br><strong>3.</strong>")
+            .replace(/4\./g, "<br><strong>4.</strong>")
+            .replace(/5\./g, "<br><strong>5.</strong>");
+        }
+        aiMsg.innerHTML = formatResponse(aiResponse);
+        chatBody.scrollTop = chatBody.scrollHeight;
+      });
+    </script>
+  </body>
+</html>
